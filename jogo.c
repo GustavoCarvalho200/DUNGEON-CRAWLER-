@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -128,7 +127,7 @@ void npc(int dim, int *x, int *y, char mapa[dim][dim], int *arm, int tecla, char
             else if(*arm == 3)
             {
                 printf("Jorge: Interessante... poucos escolhem o caminho da magia.\n");
-                printf("Jorge: Use este poder com responsabilidade.\n");
+                printf("Jorge: Use este power com responsabilidade.\n");
             }
             else
             {
@@ -273,7 +272,7 @@ void ataque(int dim, char mapa[dim][dim], int x, int y, char dir, int arm)
         else if(dir == '>')
         {
             destruir(&mapa[x-1][y+1]); destruir(&mapa[x][y+1]); destruir(&mapa[x+1][y+1]);
-            destruir(&mapa[x-1][y+2]); destruir(&mapa[x][y+2]); destruir(&mapa[x+1][y+2]);
+            destruir(&mapa[x-1][y-2]); destruir(&mapa[x][y+2]); destruir(&mapa[x+1][y+2]);
         }
     }
     else if(arm == 2) 
@@ -335,7 +334,7 @@ void mostrarHitboxArco(int dim, char mapa[dim][dim], int x, int y, char dir)
     copia[x][y] = dir;
 
     system("clear || cls");
-    desenho(dim, copia);
+    drawing: desenho(dim, copia);
 
     #ifdef _WIN32
         system("timeout /t 1 > nul");
@@ -516,7 +515,7 @@ int main()
             {'*',' ','*',' ','*','*','*','*','*','*','*',' ','*','*','*','*','*','*','*','*','*',' ','*',' ','*'},
             {'*',' ',' ',' ','*',' ',' ',' ',' ',' ','*',' ','*',' ',' ',' ',' ',' ',' ',' ','*',' ',' ',' ','*'},
             {'*','*','*',' ','*',' ','#','#','#',' ','*',' ','*',' ','#','#','#',' ','*',' ','*',' ','*','*','*'},
-            {'*',' ',' ',' ','*',' ','#',' ','#',' ','*',' ','*',' ','#',' ','#',' ','*',' ','*',' ',' ',' ','*'},
+            {'*',' Congressional',' ',' ','*',' ','#',' ','#',' ','*',' ','*',' ','#',' ','#',' ','*',' ','*',' ',' ',' ','*'},
             {'*',' ','*','*','*',' ','#',' ','#',' ','*',' ','*',' ','#',' ','#',' ','*',' ','*','*','*',' ','*'},
             {'*',' ',' ',' ',' ',' ','#','#','#',' ',' ',' ',' ',' ','#','#','#',' ',' ',' ',' ',' ',' ',' ','*'},
             {'*','*','*','*','*',' ',' ',' ',' ',' ','*','*','*','*','*',' ',' ',' ',' ',' ','*','*','*','*','*'},
@@ -532,7 +531,7 @@ int main()
             {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'}
         };
 
-        printf("\nO jogo comecou! Boa sorte!\n\n");
+        printf("\nM jogo comecou! Boa sorte!\n\n");
 
         while(1)
         {
@@ -829,35 +828,57 @@ int main()
                     perseguir(&monstro4, x, y, TAM3, fase3, &inf.vidas);
                     perseguir(&monstro5, x, y, TAM3, fase3, &inf.vidas);
 
-                    if(fase3[x][y] == 'L' && tecla == 'i') { fase = 2; x = 13; y = 7; }
+                    // PARTE ADICIONADA: Voltar para a fase 2 descendo as escadas
+                    if(fase3[x][y] == 'L' && tecla == 'i') { 
+                        fase = 2; 
+                        x = 13; 
+                        y = 7; 
+                    }
                     
-                    // ESCADA DE VITÓRIA FINAL DO MAPA 3
-                    else if(fase3[x][y] == 'L' && tecla == 'm') { 
-                        if(porta3_aberta) { 
-                            printf("\n====================================\n");
-                            printf("  PARABENS! Voce escapou da masmorra!\n");
-                            printf("====================================\n");
-                            #ifdef _WIN32
-                                Sleep(3000);
-                            #else
-                                usleep(3000000);
-                            #endif
-                            return 0;
-                        } else {
-                            printf("\nA porta final está trancada! Abra-a para vencer o jogo.\n");
-                            #ifdef _WIN32
-                                Sleep(1500);
-                            #else
-                                usleep(1500000);
-                            #endif
-                        }
+                    // Condição de Vitória: Chegar ao final da fase 3 (posição da última chave @ no canto superior esquerdo)
+                    if(x == 1 && y == 1) {
+                        printf("\n=================================================\n");
+                        printf(" ¡FELICIDADES! ¡Has completado el juego mental! \n");
+                        printf("=================================================\n");
+                        #ifdef _WIN32
+                            Sleep(3000);
+                        #else
+                            usleep(3000000);
+                        #endif
+                        return 0; // Termina el programa ganando
                     }
                     break;
-            }
-        }
+            } // Fim do switch(fase) de ações
+        } // Fim do while(1) do jogo
+    } // Fim do if(comando == 1)
+    else if(comando == 2)
+    {
+        // PARTE ADICIONADA: Lógica do Tutorial
+        printf("\n=================== TUTORIAL ===================\n");
+        printf("Controles:\n");
+        printf("  w, a, s, d -> Movimentar o personagem (^, <, v, >)\n");
+        printf("  i          -> Interagir com NPCs / Abrir portas / Descer escadas\n");
+        printf("  m          -> Subir escadas\n");
+        printf("  o          -> Atacar com a arma equipada\n");
+        printf("  q          -> Sair do jogo\n");
+        printf("\nElementos do mapa:\n");
+        printf("  * -> Parede (intransponivel)\n");
+        printf("  # -> Espinhos (causam dano)\n");
+        printf("  D -> Porta trancada\n");
+        printf("  @ -> Chave\n");
+        printf("  L -> Escada\n");
+        printf("  X -> Monstro\n");
+        printf("================================================\n\n");
+        printf("Pressione ENTER para voltar ao menu principal...");
+        getchar(); // Limpar buffer
+        getchar(); // Esperar entrada
+        main();    // Reinicia o menu principal
     }
-    else if(comando == 2) printf("Aqui esta o tutorial do jogo.\n");
-    else if(comando == 3) printf("Saindo do programa. Ate mais!\n");
+    else if(comando == 3)
+    {
+        // PARTE ADICIONADA: Opção de Sair
+        printf("\nSaindo do programa... Obrigado por jogar!\n");
+    }
 
     return 0;
 }
