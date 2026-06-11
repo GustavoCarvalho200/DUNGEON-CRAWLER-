@@ -839,7 +839,7 @@ int main()
                     // Condição de Vitória: Chegar ao final da fase 3 (posição da última chave @ no canto superior esquerdo)
                     if(x == 1 && y == 1) {
                         printf("\n=================================================\n");
-                        printf(" PARABENS \n");
+                        printf(" 				PARABENS, QUERO 3 PONTOS \n");
                         printf("=================================================\n");
                         #ifdef _WIN32
                             Sleep(3000);
