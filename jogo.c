@@ -440,11 +440,12 @@ int main()
         char person = '^';
         int x = 5, y = 5;
         
-        mobs monstro1 = {3, 3, 1, 'X'}; 
-        mobs monstro2 = {3, 4, 1, 'X'}; 
-        mobs monstro3 = {11, 4, 1, 'X'}; 
-        mobs monstro4 = {5, 11, 1, 'X'}; 
-        mobs monstro5 = {15, 12, 1, 'X'}; 
+        mobs monstro1 = {3, 3, 1, 'X1'}; 
+        mobs monstro2 = {3, 4, 1, 'X2'}; 
+        mobs monstro3 = {11, 4, 1, 'X3'}; 
+        mobs monstro4 = {5, 11, 1, 'Z'}; 
+        mobs monstro5 = {15, 12, 1, 'X5'}; 
+       
         
         int arm = 0;
         int fase = 0;
@@ -838,7 +839,7 @@ int main()
                     // Condição de Vitória: Chegar ao final da fase 3 (posição da última chave @ no canto superior esquerdo)
                     if(x == 1 && y == 1) {
                         printf("\n=================================================\n");
-                        printf(" ¡FELICIDADES! ¡Has completado el juego mental! \n");
+                        printf(" PARABENS \n");
                         printf("=================================================\n");
                         #ifdef _WIN32
                             Sleep(3000);
